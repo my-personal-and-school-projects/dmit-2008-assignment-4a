@@ -1,44 +1,54 @@
+import { useState, useEffect } from "react";
+
 import AvailableJobList from "@/components/AvailableJobList";
 import NavBar from "@/components/NavBar";
+import LoadingSpinner from "@/components/LoadingSpinner";
 
-import Container from '@mui/material/Container';
+import Container from "@mui/material/Container";
 
+import { getJobs } from "@/utils/api/jobs";
 
-const savedJobs = []
-
-const availableJobs = [
-  {
-    "id": 1,
-    "title": "Database Administrator",
-    "date_posted": "2024-04-19",
-    "company": "DataTech Enterprises",
-    "job_type": "Full-time",
-    "location": "Seattle, WA",
-    "description": "We're seeking a skilled Database Administrator to manage and optimize our organization's databases for performance and reliability.",
-    "qualifications": "Strong problem-solving and troubleshooting skills"
-  },
-  {
-    "id": 2,
-    "title": "AI Product Manager",
-    "date_posted": "2024-04-18",
-    "company": "AI Innovations Ltd.",
-    "job_type": "Full-time",
-    "location": "San Francisco, CA",
-    "description": "We're looking for an experienced AI Product Manager to drive the development and commercialization of our AI-based products.",
-    "qualifications": "Excellent communication and leadership skills"
-  }
-]
+const savedJobs = [];
 
 export default function Home() {
+  const [jobs, setJobs] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    setLoading(true);
+
+    const fetchJobs = async () => {
+      try {
+        //Delay the call for 2 sec to see the spinner
+        await new Promise((resolve) => setTimeout(resolve, 2000));
+
+        const data = await getJobs("/api/jobs");
+        setJobs(data);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching jobs:", error);
+        setLoading(false);
+      }
+    };
+
+    fetchJobs();
+  }, []);
+
   return (
     <main>
       <NavBar />
       <Container>
-        <AvailableJobList
-          jobs={availableJobs}
-          savedJobs={savedJobs}
-          setSavedJobs={()=> {/* change me! */}}
-        />
+        {loading ? (
+          <LoadingSpinner />
+        ) : (
+          <AvailableJobList
+            jobs={jobs}
+            savedJobs={savedJobs}
+            setSavedJobs={() => {
+              /* change me! */
+            }}
+          />
+        )}
       </Container>
     </main>
   );
