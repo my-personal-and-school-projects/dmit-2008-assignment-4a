@@ -6,13 +6,16 @@ import LoadingSpinner from "@/components/LoadingSpinner";
 
 import Container from "@mui/material/Container";
 
-import { getJobs } from "@/utils/api/jobs";
+import { getJobs, postRequest } from "@/utils/api/jobs";
 
-const savedJobs = [];
+const JOBS_ENDPOINT = "/api/jobs";
+
+//const savedJobs = [];
 
 export default function Home() {
-  const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [jobs, setJobs] = useState([]);
+  const [savedJobs, setSavedJobs] = useState([]);
 
   useEffect(() => {
     setLoading(true);
@@ -22,7 +25,7 @@ export default function Home() {
         //Delay the call for 2 sec to see the spinner
         await new Promise((resolve) => setTimeout(resolve, 2000));
 
-        const data = await getJobs("/api/jobs");
+        const data = await getJobs(JOBS_ENDPOINT);
         setJobs(data);
         setLoading(false);
       } catch (error) {
@@ -30,7 +33,6 @@ export default function Home() {
         setLoading(false);
       }
     };
-
     fetchJobs();
   }, []);
 
@@ -44,9 +46,7 @@ export default function Home() {
           <AvailableJobList
             jobs={jobs}
             savedJobs={savedJobs}
-            setSavedJobs={() => {
-              /* change me! */
-            }}
+            setSavedJobs={setSavedJobs}
           />
         )}
       </Container>
