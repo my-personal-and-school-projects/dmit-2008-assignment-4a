@@ -1,4 +1,4 @@
-const BASE_URL = "http://localhost:3000";
+const BASE_URL = "http://localhost:3001";
 const SAVED_JOBS_ENDPOINT = "/api/saved-jobs";
 /**
  *Make a GET request to the API

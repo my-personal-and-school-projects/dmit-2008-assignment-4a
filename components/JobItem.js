@@ -60,16 +60,7 @@ export default function JobItem({ job, savedJobs, setSavedJobs }) {
               disabled={isJobSaved}
               onClick={handleClick}
             >
-              <Typography
-                color="white"
-                sx={{
-                  textTransform: "uppercase",
-                  fontSize: 14,
-                  fontWeight: "bold",
-                }}
-              >
-                {isJobSaved ? "Saved" : "Save for Later"}
-              </Typography>
+              {isJobSaved ? "Saved" : "Save for Later"}
             </Button>
           </CardActions>
         </Box>
