@@ -23,7 +23,7 @@ export default function Home() {
     const fetchJobs = async () => {
       try {
         //Delay the call for 2 sec to see the spinner
-        await new Promise((resolve) => setTimeout(resolve, 2000));
+        //await new Promise((resolve) => setTimeout(resolve, 2000));
 
         const data = await getJobs(JOBS_ENDPOINT);
         setJobs(data);

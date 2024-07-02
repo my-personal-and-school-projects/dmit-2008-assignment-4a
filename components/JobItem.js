@@ -6,11 +6,17 @@ import CardActions from "@mui/material/CardActions";
 import { Button } from "@mui/material";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import { postRequest } from "@/utils/api/jobs";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function JobItem({ job, savedJobs, setSavedJobs }) {
   const [isJobSaved, setIsJobSaved] = useState(false);
 
+  useEffect(() => {
+    const isSaved = savedJobs.some((savedJob) => savedJob.jobId === job.id);
+    if (isSaved) {
+      setIsJobSaved(true);
+    }
+  }, [savedJobs, job.id]);
   const handleClick = async () => {
     try {
       await handleSaveJob(job.id, savedJobs, setSavedJobs);
@@ -78,7 +84,13 @@ export default function JobItem({ job, savedJobs, setSavedJobs }) {
 async function handleSaveJob(jobId, savedJobs, setSavedJobs) {
   try {
     const savedJob = await postRequest(jobId);
-    setSavedJobs([...savedJobs, savedJob]);
+    console.log("Saved job:", savedJob);
+
+    if (savedJob) {
+      setSavedJobs([...savedJobs, savedJob]);
+    } else {
+      console.log("Undefined job");
+    }
   } catch (error) {
     console.error("Error saving job:", error);
   }
