@@ -5,9 +5,9 @@ const SAVED_JOBS_ENDPOINT = "/api/saved-jobs";
  * @param {*} endpoint
  * @returns all jobs from the API
  */
-export async function getJobs(endpoint) {
+export async function getJobs() {
   try {
-    const response = await fetch(`${BASE_URL}${endpoint}`);
+    const response = await fetch(`${BASE_URL}${"/api/jobs"}`);
 
     if (!response.ok) {
       throw new Error("No jobs found");
