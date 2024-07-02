@@ -9,6 +9,7 @@ import Container from "@mui/material/Container";
 import { getJobs } from "@/utils/api/jobs";
 
 const JOBS_ENDPOINT = "/api/jobs";
+const SAVED_JOBS_ENDPOINT = "/api/saved-jobs";
 
 //const savedJobs = [];
 
@@ -24,6 +25,22 @@ export default function Home() {
       .then((data) => {
         console.log("Fetched jobs:", data);
         setJobs(data);
+      })
+      .catch((error) => {
+        console.error("Error fetching jobs:", error);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, []);
+
+  //fetch saved-jobs on mount
+  useEffect(() => {
+    setLoading(true);
+    getJobs(SAVED_JOBS_ENDPOINT)
+      .then((data) => {
+        console.log("Fetched jobs:", data);
+        setSavedJobs(data);
       })
       .catch((error) => {
         console.error("Error fetching jobs:", error);
