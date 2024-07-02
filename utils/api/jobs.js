@@ -5,9 +5,9 @@ const SAVED_JOBS_ENDPOINT = "/api/saved-jobs";
  * @param {*} endpoint
  * @returns all jobs from the API
  */
-export async function getJobs() {
+/* export async function getJobs(endpoint) {
   try {
-    const response = await fetch("http://localhost:3000/api/jobs");
+    const response = await fetch(`${BASE_URL}${endpoint}`);
 
     if (!response.ok) {
       throw new Error("No jobs found");
@@ -17,6 +17,27 @@ export async function getJobs() {
     //console.table(data);
     return data;
   } catch (error) {
+    throw error;
+  }
+} */
+
+export async function getJobs(endpoint) {
+  const url = `${BASE_URL}${endpoint}`;
+
+  try {
+    const response = await fetch(url);
+
+    if (!response.ok) {
+      throw new Error(
+        `Failed to fetch jobs from ${url}, status ${response.status}`
+      );
+    }
+
+    const data = await response.json();
+    console.log("Fetched jobs successfully:", data);
+    return data;
+  } catch (error) {
+    console.error("Error fetching jobs:", error);
     throw error;
   }
 }
