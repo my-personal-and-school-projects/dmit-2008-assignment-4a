@@ -7,7 +7,7 @@ const SAVED_JOBS_ENDPOINT = "/api/saved-jobs";
  */
 export async function getJobs() {
   try {
-    const response = await fetch(`${BASE_URL}${"/api/jobs"}`);
+    const response = await fetch("http://localhost:3000/api/jobs");
 
     if (!response.ok) {
       throw new Error("No jobs found");
