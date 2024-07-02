@@ -6,7 +6,7 @@ import LoadingSpinner from "@/components/LoadingSpinner";
 
 import Container from "@mui/material/Container";
 
-import { getJobs, postRequest } from "@/utils/api/jobs";
+import { getJobs } from "@/utils/api/jobs";
 
 const JOBS_ENDPOINT = "/api/jobs";
 
@@ -17,23 +17,20 @@ export default function Home() {
   const [jobs, setJobs] = useState([]);
   const [savedJobs, setSavedJobs] = useState([]);
 
+  //fetch jobs on mount
   useEffect(() => {
     setLoading(true);
-
-    const fetchJobs = async () => {
-      try {
-        //Delay the call for 2 sec to see the spinner
-        //await new Promise((resolve) => setTimeout(resolve, 2000));
-
-        const data = await getJobs(JOBS_ENDPOINT);
+    getJobs(JOBS_ENDPOINT)
+      .then((data) => {
+        console.log("Fetched jobs:", data);
         setJobs(data);
-        setLoading(false);
-      } catch (error) {
+      })
+      .catch((error) => {
         console.error("Error fetching jobs:", error);
+      })
+      .finally(() => {
         setLoading(false);
-      }
-    };
-    fetchJobs();
+      });
   }, []);
 
   return (

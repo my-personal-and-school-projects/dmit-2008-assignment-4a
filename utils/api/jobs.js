@@ -14,7 +14,7 @@ export async function getJobs(endpoint) {
     }
     const data = await response.json();
 
-    //console.table(data); //Log Data for verification purposes
+    //console.table(data);
     return data;
   } catch (error) {
     throw error;

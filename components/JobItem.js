@@ -17,6 +17,7 @@ export default function JobItem({ job, savedJobs, setSavedJobs }) {
       setIsJobSaved(true);
     }
   }, [savedJobs, job.id]);
+
   const handleClick = async () => {
     try {
       await handleSaveJob(job.id, savedJobs, setSavedJobs);
@@ -26,6 +27,7 @@ export default function JobItem({ job, savedJobs, setSavedJobs }) {
       console.error("Error saving job:", error);
     }
   };
+
   return (
     <>
       <Card variant="outlined" sx={{ marginBottom: 2, width: "90%" }}>
