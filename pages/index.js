@@ -6,10 +6,7 @@ import LoadingSpinner from "@/components/LoadingSpinner";
 
 import Container from "@mui/material/Container";
 
-import { getJobs } from "../utils/api/jobs";
-
-const JOBS_ENDPOINT = "/api/jobs";
-const SAVED_JOBS_ENDPOINT = "/api/saved-jobs";
+import { getJobs, getSavedJobs } from "../utils/api/jobs";
 
 //const savedJobs = [];
 
@@ -21,7 +18,7 @@ export default function Home() {
   //fetch jobs on mount
   useEffect(() => {
     setLoading(true);
-    getJobs(JOBS_ENDPOINT)
+    getJobs()
       .then((data) => {
         console.log("Fetched jobs:", data);
         setJobs(data);
@@ -37,13 +34,13 @@ export default function Home() {
   //fetch saved-jobs on mount
   useEffect(() => {
     setLoading(true);
-    getJobs(SAVED_JOBS_ENDPOINT)
+    getSavedJobs()
       .then((data) => {
-        console.log("Fetched jobs:", data);
+        console.log("Fetched saved jobs:", data);
         setSavedJobs(data);
       })
       .catch((error) => {
-        console.error("Error fetching jobs:", error);
+        console.error("Error fetching saved-jobs:", error);
       })
       .finally(() => {
         setLoading(false);

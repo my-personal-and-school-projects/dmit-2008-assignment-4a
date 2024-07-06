@@ -1,13 +1,36 @@
-const BASE_URL = "http://localhost:3000";
+export const BASE_URL = "http://localhost:3000";
+const JOBS_ENDPOINT = "/api/jobs";
 const SAVED_JOBS_ENDPOINT = "/api/saved-jobs";
+
 /**
- *Make a GET request to the API
+ *Make a GET request to the API fro the Jobs
  * @param {*} endpoint
  * @returns all jobs from the API
  */
-export async function getJobs(endpoint) {
+export async function getJobs() {
   try {
-    const response = await fetch(`${BASE_URL}${endpoint}`);
+    const response = await fetch(`${BASE_URL}${JOBS_ENDPOINT}`);
+
+    if (!response.ok) {
+      throw new Error("No jobs found");
+    }
+    const data = await response.json();
+
+    //console.table(data);
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+/**
+ *Make a GET request to the API for the savedJobs
+ * @param {*} endpoint
+ * @returns all jobs from the API
+ */
+export async function getSavedJobs() {
+  try {
+    const response = await fetch(`${BASE_URL}${SAVED_JOBS_ENDPOINT}`);
 
     if (!response.ok) {
       throw new Error("No jobs found");
