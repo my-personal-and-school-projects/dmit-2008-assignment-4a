@@ -7,9 +7,11 @@ import { Button } from "@mui/material";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import { postRequest } from "@/utils/api/jobs";
 import { useEffect, useState } from "react";
+import { useJobs } from "@/context/JobsContext";
 
-export default function JobItem({ job, savedJobs, setSavedJobs }) {
+export default function JobItem({ job }) {
   const [isJobSaved, setIsJobSaved] = useState(false);
+  const { savedJobs, setSavedJobs } = useJobs();
 
   useEffect(() => {
     const isSaved = savedJobs.some((savedJob) => savedJob.jobId === job.id);
@@ -18,7 +20,7 @@ export default function JobItem({ job, savedJobs, setSavedJobs }) {
     }
   }, [savedJobs, job.id]);
 
-  const handleClick = async () => {
+  const handleOnClick = async () => {
     try {
       await handleSaveJob(job.id, savedJobs, setSavedJobs);
       setIsJobSaved(true);
@@ -66,7 +68,7 @@ export default function JobItem({ job, savedJobs, setSavedJobs }) {
               variant="contained"
               startIcon={<BookmarkIcon />}
               disabled={isJobSaved}
-              onClick={handleClick}
+              onClick={handleOnClick}
             >
               {isJobSaved ? "Saved" : "Save for Later"}
             </Button>
