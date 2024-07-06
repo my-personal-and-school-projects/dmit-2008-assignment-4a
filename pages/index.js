@@ -6,7 +6,7 @@ import LoadingSpinner from "@/components/LoadingSpinner";
 
 import Container from "@mui/material/Container";
 
-import { getJobs } from "@/utils/api/jobs";
+import { getJobs } from "../utils/api/jobs";
 
 const JOBS_ENDPOINT = "/api/jobs";
 const SAVED_JOBS_ENDPOINT = "/api/saved-jobs";
