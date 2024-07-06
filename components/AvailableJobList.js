@@ -5,7 +5,7 @@ import Typography from "@mui/material/Typography";
 
 import JobItem from "./JobItem";
 
-export default function AvailableJobList({ jobs, savedJobs, setSavedJobs }) {
+export default function AvailableJobList({ jobs }) {
   const [search, setSearch] = useState("");
 
   return (
@@ -28,14 +28,7 @@ export default function AvailableJobList({ jobs, savedJobs, setSavedJobs }) {
           return job.title.toLowerCase().includes(search.toLowerCase());
         })
         .map((job) => {
-          return (
-            <JobItem
-              key={job.id}
-              job={job}
-              savedJobs={savedJobs}
-              setSavedJobs={setSavedJobs}
-            />
-          );
+          return <JobItem key={job.id} job={job} />;
         })}
     </>
   );
