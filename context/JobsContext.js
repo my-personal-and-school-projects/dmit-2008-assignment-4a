@@ -1,8 +1,5 @@
 import { useState, useEffect, useContext, createContext } from "react";
-import { getJobs } from "@/utils/api/jobs";
-
-const JOBS_ENDPOINT = "/api/jobs";
-const SAVED_JOBS_ENDPOINT = "/api/saved-jobs";
+import { getJobs, getSavedJobs } from "@/utils/api/jobs";
 
 const JobsContext = createContext();
 
@@ -15,8 +12,8 @@ export function JobsProvider({ children }) {
     const fetchData = async () => {
       setLoading(true);
       try {
-        const jobsData = await getJobs(JOBS_ENDPOINT);
-        const savedJobsData = await getJobs(SAVED_JOBS_ENDPOINT);
+        const jobsData = await getJobs();
+        const savedJobsData = await getSavedJobs();
 
         setJobs(jobsData);
         setSavedJobs(savedJobsData);

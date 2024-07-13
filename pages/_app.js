@@ -8,5 +8,9 @@ import "@fontsource/roboto/700.css";
 import { JobsProvider } from "../context/JobsContext";
 
 export default function App({ Component, pageProps }) {
-  return <Component {...pageProps} />;
+  return (
+    <JobsProvider>
+      <Component {...pageProps} />
+    </JobsProvider>
+  );
 }
